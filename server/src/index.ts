@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import authRoutes from './routes/authRoutes';
+import authRoutes from './routes/authRoute';
 import sensorRoutes from './routes/sensorRoute';
 import dotenv from 'dotenv';
 
