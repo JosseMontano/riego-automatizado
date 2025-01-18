@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/mydb')
     console.log('Conectado a MongoDB');
   })
   .catch((error) => {
-    console.error('error en la conexcion de MongoDB: ', error);
+    console.error('error al conectar con MongoDB: ', error);
   });
 
 app.use('/auth', authRoutes);
