@@ -6,19 +6,19 @@ const router = Router();
 //@ts-ignore
 router.post('/sensor', async (req: Request, res: Response) => {
   try {
-    const { temperature, humidity } = req.body;
+    const { temperature, humidity, estado } = req.body;  // Añadir estado en el cuerpo
 
-    if (temperature === undefined || humidity === undefined) {
-      return res.status(400).json({ message: 'Temperature and humidity are required.' });
+    if (temperature === undefined || humidity === undefined || estado === undefined) {
+      return res.status(400).json({ message: 'Temperatura, humedad y estado son requeridos.' });
     }
 
-    const newSensor = new Sensor({ temperature, humidity });
+    const newSensor = new Sensor({ temperature, humidity, estado });
     await newSensor.save();
 
-    return res.status(201).json({ message: 'Sensor data saved successfully', sensor: newSensor });
+    return res.status(201).json({ message: 'Datos guardados', sensor: newSensor });
   } catch (error) {
     if (error instanceof Error) {
-      return res.status(500).json({ message: 'Server error', error: error.message });
+      return res.status(500).json({ message: 'Error en el servidor', error: error.message });
     }
   }
 });
@@ -30,7 +30,7 @@ router.get('/sensor', async (req: Request, res: Response) => {
     return res.status(200).json(sensors);
   } catch (error) {
     if (error instanceof Error) {
-      return res.status(500).json({ message: 'Server error', error: error.message });
+      return res.status(500).json({ message: 'Error en el servidor', error: error.message });
     }
   }
 });

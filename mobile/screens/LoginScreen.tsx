@@ -24,8 +24,7 @@ const LoginScreen = () => {
   });
 
   const onSubmit = (data: LoginFormInputs) => {
-       console.log(data);
-    // Aquí rediriges a la pantalla Home después del login exitoso
+    console.log(data);
     linkTo("/Register");
   };
 

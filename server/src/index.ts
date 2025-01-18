@@ -11,23 +11,23 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/mydb')
   .then(() => {
-    console.log('Connected to MongoDB');
+    console.log('Conectado a MongoDB');
   })
   .catch((error) => {
-    console.error('MongoDB connection error:', error);
+    console.error('error en la conexcion de MongoDB: ', error);
   });
 
 app.use('/auth', authRoutes);
 app.use('/api', sensorRoutes);
+app.use('/api', sensorRoutes);
 
 app.get('/', (_, res) => {
-  res.send('PONG');
+  res.send('Bienvenido al servidor de riego automatizado');
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`El servidor esta listo en el puerto ${PORT}`);
 });
 

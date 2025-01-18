@@ -18,7 +18,6 @@ userSchema.pre('save', async function (next) {
     
     const salt = await bcrypt.genSalt(10);
     
-    // Asignación explícita del tipo string a `this.password`
     this.password = await bcrypt.hash(this.password as string, salt);
     
     next();
