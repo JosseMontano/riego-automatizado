@@ -34,10 +34,8 @@ export const getServices = async <T>(
 export async function post<T, R>(
     url: string,
     body: T
-  ): Promise<{ msg: string; data: R | null }> {
+  ) {
     try {
-      console.log(config.backendUrl + url);
-      
       const response = await fetch(config.backendUrl + url, {
         method: "POST",
         headers: new Headers({
@@ -51,19 +49,12 @@ export async function post<T, R>(
         }),
       });
       const res = await response.json();
-      const { message, data } = res;
-      return {
-        msg: message,
-        data: data,
-      };
+      return res;
     } catch (error) {
       let msgError = "";
       if (error instanceof Error) {
         msgError = error.message;
       }
-      return {
-        msg: msgError,
-        data: null,
-      };
+      return null;
     }
   }

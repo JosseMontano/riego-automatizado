@@ -1,4 +1,4 @@
 export const config = {
-    backendUrl: "https://riego-automatizado.vercel.app/",
+    backendUrl: "https://riego-automatizado.vercel.app/api/",
 };
   

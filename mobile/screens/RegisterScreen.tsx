@@ -38,7 +38,7 @@ const LoginScreen = () => {
   });
 
   const onSubmit = async (data: LoginFormInputs) => {
-    const res = await post("auth/register", data)
+    const res = await post("register", data)
     console.log(res);
     //linkTo("/Register");
   };
