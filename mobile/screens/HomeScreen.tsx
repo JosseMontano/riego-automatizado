@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { TextInput, Button, Text, HelperText } from "react-native-paper";
 import { useLinkTo } from "@react-navigation/native";
+import { primaryColor } from "../constants/styles";
 
 interface LoginFormInputs {
   email: string;
@@ -103,8 +104,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 16,
-    backgroundColor: "#f5511e",
-    borderRadius: 7,
+    backgroundColor: primaryColor,
+    borderRadius: 10,
+    padding:7,
   },
 });
 
