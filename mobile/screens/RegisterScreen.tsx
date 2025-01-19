@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { TextInput, Button, Text, HelperText } from "react-native-paper";
 import { useLinkTo } from "@react-navigation/native";
 import { primaryColor } from "../constants/styles";
+import { post } from "../utils/fetch";
 
 interface LoginFormInputs {
   email: string;
@@ -36,9 +37,10 @@ const LoginScreen = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: LoginFormInputs) => {
-    console.log(data);
-    linkTo("/Register");
+  const onSubmit = async (data: LoginFormInputs) => {
+    const res = await post("auth/register", data)
+    console.log(res);
+    //linkTo("/Register");
   };
 
   return (

@@ -20,9 +20,9 @@ mongoose
     console.error("error al conectar con MongoDB: ", error);
 });
 
-/* app.use("/auth", authRoutes);
+ app.use("/api", authRoutes);
 app.use("/api", sensorRoutes);
-app.use("/api", sensorRoutes); */
+app.use("/api", sensorRoutes); 
 
 app.get("/", (_, res) => {
   res.send("Bienvenido al servidor de riego automatizado");
