@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const app = express();
+const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
@@ -31,3 +31,5 @@ app.get("/", (_, res) => {
 app.listen(PORT, () => {
   console.log(`El servidor esta listo en el puerto ${PORT}`);
 });
+
+export default app;

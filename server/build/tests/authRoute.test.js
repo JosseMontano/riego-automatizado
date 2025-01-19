@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
-const index_1 = require("../index");
+const index_1 = __importDefault(require("../index"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const userModel_1 = __importDefault(require("../models/userModel"));
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
@@ -26,7 +26,7 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
 const endpoint = "/auth/";
 describe('POST /register', () => {
     it('Deberia registrar un nuevo usuario', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(index_1.app)
+        const response = yield (0, supertest_1.default)(index_1.default)
             .post(endpoint + 'register')
             .send({ email: 'testuser@example.com', password: 'password123' });
         yield userModel_1.default.deleteOne({ email: 'testuser@example.com' });
@@ -35,7 +35,7 @@ describe('POST /register', () => {
     }));
     it('Deberia retornar 400 si el usuario existe', () => __awaiter(void 0, void 0, void 0, function* () {
         yield new userModel_1.default({ email: 'testuser@example.com', password: 'password123' }).save();
-        const response = yield (0, supertest_1.default)(index_1.app)
+        const response = yield (0, supertest_1.default)(index_1.default)
             .post(endpoint + 'register')
             .send({ email: 'testuser@example.com', password: 'newpassword' });
         yield userModel_1.default.deleteOne({ email: 'testuser@example.com' });
@@ -46,7 +46,7 @@ describe('POST /register', () => {
         const mockError = jest.spyOn(userModel_1.default.prototype, 'save').mockImplementationOnce(() => {
             return Promise.reject(new Error('Database error'));
         });
-        const response = yield (0, supertest_1.default)(index_1.app)
+        const response = yield (0, supertest_1.default)(index_1.default)
             .post(endpoint + 'register')
             .send({ email: 'testuser@example1.com', password: 'password123' });
         expect(response.status).toBe(500);
@@ -58,7 +58,7 @@ describe('POST /login', () => {
     it('Deberia iniciar sesion y retornar un token', () => __awaiter(void 0, void 0, void 0, function* () {
         const user = new userModel_1.default({ email: 'testuser@example.com', password: 'password123' });
         yield user.save();
-        const response = yield (0, supertest_1.default)(index_1.app)
+        const response = yield (0, supertest_1.default)(index_1.default)
             .post(endpoint + 'login')
             .send({ email: 'testuser@example.com', password: 'password123' });
         expect(response.status).toBe(200);
@@ -66,7 +66,7 @@ describe('POST /login', () => {
         yield userModel_1.default.deleteOne({ email: 'testuser@example.com' });
     }));
     it('Deberia retornar 400 si la contraseña o el email son incorrectos', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(index_1.app)
+        const response = yield (0, supertest_1.default)(index_1.default)
             .post(endpoint + 'login')
             .send({ email: 'nonexistentuser@example.com', password: 'wrongpassword' });
         expect(response.status).toBe(400);
@@ -77,7 +77,7 @@ describe('POST /change-password', () => {
     it('should update the password successfully', () => __awaiter(void 0, void 0, void 0, function* () {
         const user = new userModel_1.default({ email: 'testuser@example.com', password: 'password123' });
         yield user.save(); // Guardar usuario
-        const response = yield (0, supertest_1.default)(index_1.app)
+        const response = yield (0, supertest_1.default)(index_1.default)
             .post(endpoint + 'change-password')
             .send({ email: 'testuser@example.com', oldPassword: 'password123', newPassword: 'newpassword123' });
         expect(response.status).toBe(200);
@@ -91,7 +91,7 @@ describe('POST /change-password', () => {
     it('should return 400 if the old password is invalid', () => __awaiter(void 0, void 0, void 0, function* () {
         const user = new userModel_1.default({ email: 'testuser@example.com', password: 'password123' });
         yield user.save(); // Guardar usuario
-        const response = yield (0, supertest_1.default)(index_1.app)
+        const response = yield (0, supertest_1.default)(index_1.default)
             .post(endpoint + 'change-password')
             .send({ email: 'testuser@example.com', oldPassword: 'wrongpassword', newPassword: 'newpassword123' });
         expect(response.status).toBe(400);
