@@ -19,7 +19,7 @@ router.post('/register', async (req: Request, res: Response) => {
         await newUser.save();
 
         res.status(201).json({ message: 'Usuario registrado satisfactoriamente' });
-    } catch (error) { 
+    } catch (error) {
         res.status(500).json({ error });
     }
 });
@@ -33,7 +33,9 @@ router.post('/login', async (req: Request, res: Response) => {
         }
 
         const token = jwt.sign({ id: user._id }, secret, { expiresIn: '1h' });
-        res.json({ token });
+        console.log(token);
+
+        res.json({ message: "Inicio de sesion correcto" });
     } catch (error) {
         res.status(500).json({ error });
     }

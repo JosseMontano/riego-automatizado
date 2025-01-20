@@ -7,6 +7,7 @@ import FeaturesScreen from "./screens/featuresScreen";
 import HomeScreen from "./screens/HomeScreen";
 import { Provider as PaperProvider } from "react-native-paper";
 import { DefaultTheme } from "react-native-paper";
+import ChangePassowrdScreen from "./screens/ChangePasswordScreen";
 
 const theme = {
   ...DefaultTheme,
@@ -28,6 +29,7 @@ const App = () => {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="ChangePassword" component={ChangePassowrdScreen} />
           <Stack.Screen name="Features" component={FeaturesScreen} />
         </Stack.Navigator>
       </NavigationContainer>

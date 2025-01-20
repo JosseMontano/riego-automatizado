@@ -10,7 +10,8 @@ import { post } from "../utils/fetch";
 
 interface LoginFormInputs {
   email: string;
-  password: string;
+  oldPassword: string;
+  newPassword: string;
 }
 
 const schema = yup
@@ -19,14 +20,18 @@ const schema = yup
       .string()
       .email("Email inválido")
       .required("El email es obligatorio"),
-    password: yup
+    oldPassword: yup
+      .string()
+      .min(6, "La contraseña debe tener al menos 6 caracteres")
+      .required("La contraseña es obligatoria"),
+    newPassword: yup
       .string()
       .min(6, "La contraseña debe tener al menos 6 caracteres")
       .required("La contraseña es obligatoria"),
   })
   .required();
 
-const LoginScreen = () => {
+const ChangePassowrdScreen = () => {
   const linkTo = useLinkTo();
     const [loading, setLoading] = useState(false);
   const {
@@ -39,18 +44,18 @@ const LoginScreen = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     setLoading(true)
-    const res = await post("register", data)
+    const res = await post("change-password", data);
     const result = await res?.json();
     setLoading(false)
     Alert.alert(result.message);
-    if (res?.status == 200 || res?.status == 201) linkTo("/Register");
+    if (res?.status == 200 || res?.status == 201) linkTo("/Login");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create una cuenta</Text>
+      <Text style={styles.title}>Cambiar contraseña</Text>
       <Text style={styles.subtitle}>
-        Create una cuenta y comienza a usar la tecnologia a tu favor
+        Ingresa los datos solicitados para cambiar la contraseña
       </Text>
 
       <Controller
@@ -81,26 +86,54 @@ const LoginScreen = () => {
 
       <Controller
         control={control}
-        name="password"
+        name="oldPassword"
         render={({ field: { onChange, onBlur, value } }) => (
           <>
             <TextInput
-              label="Contraseña"
+              label="Antigua contraseña"
               mode="outlined"
               secureTextEntry
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              error={!!errors.password}
-              style={{ marginTop: errors.password ? 0 : 15 }}
+              error={!!errors.oldPassword}
+              style={{ marginTop: errors.oldPassword ? 0 : 15 }}
             />
-            {errors.password && (
+            {errors.oldPassword && (
               <HelperText
                 type="error"
-                visible={!!errors.password}
+                visible={!!errors.oldPassword}
                 style={styles.errorMsg}
               >
-                {errors.password.message}
+                {errors.oldPassword.message}
+              </HelperText>
+            )}
+          </>
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="newPassword"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <>
+            <TextInput
+              label="Nueva contraseña"
+              mode="outlined"
+              secureTextEntry
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              error={!!errors.newPassword}
+              style={{ marginTop: errors.newPassword ? 0 : 15 }}
+            />
+            {errors.newPassword && (
+              <HelperText
+                type="error"
+                visible={!!errors.newPassword}
+                style={styles.errorMsg}
+              >
+                {errors.newPassword.message}
               </HelperText>
             )}
           </>
@@ -110,10 +143,11 @@ const LoginScreen = () => {
       <Button
         mode="contained"
         onPress={handleSubmit(onSubmit)}
-        style={[styles.button, { marginTop: errors.password ? 0 : 15 }]}
+        style={[styles.button, { marginTop: errors.newPassword ? 0 : 15 }]}
         labelStyle={{ fontSize: 17 }}
+        disabled={loading}
       >
-        Crearse una cuenta
+        {loading ? "Cargando..." : "Cambiar contraseña"}
       </Button>
     </View>
   );
@@ -157,4 +191,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default ChangePassowrdScreen;

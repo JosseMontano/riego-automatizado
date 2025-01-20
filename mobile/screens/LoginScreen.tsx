@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Alert } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -27,6 +27,7 @@ const schema = yup
   .required();
 
 const LoginScreen = () => {
+      const [loading, setLoading] = useState(false);
   const linkTo = useLinkTo();
 
   const {
@@ -38,12 +39,13 @@ const LoginScreen = () => {
   });
 
   const onSubmit = async(data: LoginFormInputs) => {
-   const res = await post("login", data)
-  console.log(res); 
-  if(res.token){
-      //linkTo("/Features");
-  }
- 
+    setLoading(true)
+    const res = await post("login", data)
+    const result = await res?.json();
+    setLoading(false)
+    Alert.alert(result.message);
+    if (res?.status == 200 || res?.status == 201) linkTo("/Features");
+  
   };
 
   return (
@@ -109,6 +111,7 @@ const LoginScreen = () => {
     
       <Text
         style={[styles.forgotPassword, { marginTop: errors.password ? 0 : 15 }]}
+        onPress={()=>linkTo("/ChangePassword")}
       >
         Olvidaste tu contraseña?
       </Text>

@@ -48,8 +48,8 @@ export async function post<T, R>(
           ...body,
         }),
       });
-      const res = await response.json();
-      return res;
+      //const res = await response.json();
+      return response;
     } catch (error) {
       let msgError = "";
       if (error instanceof Error) {
