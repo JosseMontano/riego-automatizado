@@ -2,9 +2,12 @@ import request from 'supertest';
 import  app  from '../index';
 import mongoose from 'mongoose';
 import User from '../models/userModel';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 beforeAll(async () => {
-  await mongoose.connect('mongodb://localhost:27017/mydb');
+  await mongoose.connect(process.env.MONGO_URI || "");
 });
 
 afterAll(async () => {
@@ -12,7 +15,7 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-const endpoint = "/auth/"
+const endpoint = "/api/"
 
 describe('POST /register', () => {
   it('Deberia registrar un nuevo usuario', async () => {
@@ -21,7 +24,7 @@ describe('POST /register', () => {
       .send({ email: 'testuser@example.com', password: 'password123' });
 
     await User.deleteOne({ email: 'testuser@example.com' });
-
+    
     expect(response.status).toBe(201);
     expect(response.body.message).toBe('Usuario registrado satisfactoriamente');
   });
@@ -52,10 +55,10 @@ describe('POST /register', () => {
     expect(response.body.error).toBeDefined();
 
     mockError.mockRestore();
-  });
+  }); 
 });
 
-describe('POST /login', () => {
+ describe('POST /login', () => {
   it('Deberia iniciar sesion y retornar un token', async () => {
     const user = new User({ email: 'testuser@example.com', password: 'password123' });
     await user.save(); 
@@ -65,7 +68,7 @@ describe('POST /login', () => {
       .send({ email: 'testuser@example.com', password: 'password123' });
 
     expect(response.status).toBe(200);
-    expect(response.body.token).toBeDefined(); 
+    expect(response.body.message).toBe('Inicio de sesion correcto');
 
     await User.deleteOne({ email: 'testuser@example.com' }); 
   });
@@ -114,3 +117,4 @@ describe('POST /change-password', () => {
     await User.deleteOne({ email: 'testuser@example.com' }); // Limpiar después del test
   });
 });
+ 

@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { Text } from "react-native-paper";
 import { primaryColor } from "../constants/styles";
+import { Table } from "../components/table";
 
 const LoginScreen = () => {
   type featureType = "Riego" | "Temperatura" | "Humedad";
@@ -10,8 +17,20 @@ const LoginScreen = () => {
     setFeature(val);
   };
 
+  const data1 = [
+    { date: "John Doe", val: "Temp1" },
+    { date: "Jane Smith", val: "Temp2" },
+    { date: "Sam Johnson", val: "Temp3" },
+  ];
+
+  const data2 = [
+    { date: "John Doe", val: "Temp11" },
+    { date: "Jane Smith", val: "Temp22" },
+    { date: "Sam Johnson", val: "Temp33" },
+  ];
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.containerFeatures}>
         <TouchableOpacity
           onPress={() => handleFeature("Riego")}
@@ -48,7 +67,7 @@ const LoginScreen = () => {
               {
                 backgroundColor:
                   feature == "Temperatura" ? primaryColor : "#f5f5f5",
-                  color: feature == "Temperatura" ? "#f5f5f5" : "#000",
+                color: feature == "Temperatura" ? "#f5f5f5" : "#000",
               },
             ]}
           >
@@ -70,7 +89,7 @@ const LoginScreen = () => {
               {
                 backgroundColor:
                   feature == "Humedad" ? primaryColor : "#f5f5f5",
-                  color: feature == "Humedad" ? "#f5f5f5" : "#000",
+                color: feature == "Humedad" ? "#f5f5f5" : "#000",
               },
             ]}
           >
@@ -81,21 +100,29 @@ const LoginScreen = () => {
 
       <View style={styles.containerContent}>
         <Text style={styles.title}>{feature}</Text>
+
+        {feature == "Riego" && (
+          <View>
+            <Text>hola</Text>
+          </View>
+        )}
+        {feature == "Temperatura" && <Table data={data1} />}
+        {feature == "Humedad" && <Table data={data2} />}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     backgroundColor: "#f5f5f5",
     gap: 20,
     padding: 15,
   },
   containerFeatures: {
     flexDirection: "row",
+    justifyContent: "center",
     gap: 10,
   },
   features: {

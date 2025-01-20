@@ -42,7 +42,8 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return res.status(400).json({ message: 'Email o contraseña invalida' });
         }
         const token = jsonwebtoken_1.default.sign({ id: user._id }, secret, { expiresIn: '1h' });
-        res.json({ token });
+        console.log(token);
+        res.json({ message: "Inicio de sesion correcto" });
     }
     catch (error) {
         res.status(500).json({ error });
