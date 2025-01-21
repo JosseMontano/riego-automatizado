@@ -6,13 +6,13 @@ const router = Router();
 //@ts-ignore
 router.post('/sensor', async (req: Request, res: Response) => {
   try {
-    const { temperature, humidity, estado } = req.body;  // Añadir estado en el cuerpo
+    const { temperature, humidity } = req.body;  
 
-    if (temperature === undefined || humidity === undefined || estado === undefined) {
+    if (temperature === undefined || humidity === undefined) {
       return res.status(400).json({ message: 'Temperatura, humedad y estado son requeridos.' });
     }
 
-    const newSensor = new Sensor({ temperature, humidity, estado });
+    const newSensor = new Sensor({ temperature, humidity, estado:true });
     await newSensor.save();
 
     return res.status(201).json({ message: 'Datos guardados', sensor: newSensor });

@@ -22,7 +22,7 @@ mongoose
 
 app.use("/auth", authRoutes);
 app.use("/api", sensorRoutes);
-app.use("/api", sensorRoutes);
+//app.use("/api", sensorRoutes);
 
 app.get("/", (_, res) => {
   res.send("Bienvenido al servidor de riego automatizado");
