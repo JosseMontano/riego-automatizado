@@ -7,7 +7,7 @@ const router = Router();
 router.post('/sensor', async (req: Request, res: Response) => {
   try {
     const { temperature, humidity } = req.body;  
-
+    console.log(temperature, humidity);
     if (temperature === undefined || humidity === undefined) {
       return res.status(400).json({ message: 'Temperatura, humedad y estado son requeridos.' });
     }

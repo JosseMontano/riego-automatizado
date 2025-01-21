@@ -3,11 +3,20 @@ import mongoose from "mongoose";
 import authRoutes from "./routes/authRoute";
 import sensorRoutes from "./routes/sensorRoute";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+ /* cors */
+ app.use(
+  cors({
+    credentials: true,
+    origin: true, // Permitir cualquier origen
+  })
+);
 
 const PORT = process.env.PORT || 3000;
 

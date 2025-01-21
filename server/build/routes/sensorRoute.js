@@ -19,6 +19,7 @@ const router = (0, express_1.Router)();
 router.post('/sensor', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { temperature, humidity } = req.body;
+        console.log(temperature, humidity);
         if (temperature === undefined || humidity === undefined) {
             return res.status(400).json({ message: 'Temperatura, humedad y estado son requeridos.' });
         }
