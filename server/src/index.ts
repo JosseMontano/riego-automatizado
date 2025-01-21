@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const app = express();
+const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
@@ -20,9 +20,8 @@ mongoose
     console.error("error al conectar con MongoDB: ", error);
 });
 
-app.use("/auth", authRoutes);
+ app.use("/api", authRoutes);
 app.use("/api", sensorRoutes);
-//app.use("/api", sensorRoutes);
 
 app.get("/", (_, res) => {
   res.send("Bienvenido al servidor de riego automatizado");
@@ -31,3 +30,5 @@ app.get("/", (_, res) => {
 app.listen(PORT, () => {
   console.log(`El servidor esta listo en el puerto ${PORT}`);
 });
+
+export default app;
