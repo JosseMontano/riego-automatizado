@@ -2,7 +2,7 @@ import {config} from "../constants/http";
 
 export const getServices = async <T>(
   endPoint: string
-): Promise<{ data: T[] }> => {
+) => {
   try {
 
     const response = await fetch(config.backendUrl + endPoint, {
@@ -15,19 +15,13 @@ export const getServices = async <T>(
     });
 
     if (response.ok) {
-      const result = await response.json();
-      return {
-        data: result,
-      };
+      return response
     }
-    return {
-      data: [],
-    };
+    return null
+
   } catch (err) {
     console.error(err);
-    return {
-      data: [],
-    };
+    return null
   }
 };
 
