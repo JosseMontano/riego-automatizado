@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const authRoute_1 = __importDefault(require("./routes/authRoute"));
 const sensorRoute_1 = __importDefault(require("./routes/sensorRoute"));
+const errorRoute_1 = __importDefault(require("./routes/errorRoute"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
@@ -28,6 +29,7 @@ mongoose_1.default
 });
 app.use("/api", authRoute_1.default);
 app.use("/api", sensorRoute_1.default);
+app.use("/api", errorRoute_1.default);
 app.get("/", (_, res) => {
     res.send("Bienvenido al servidor de riego automatizado");
 });

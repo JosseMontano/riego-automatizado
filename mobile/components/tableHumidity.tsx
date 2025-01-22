@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, ActivityIndicator } from "react-native";
 import { Text } from "react-native-paper";
 import { getServices } from "../utils/fetch";
 
@@ -12,6 +12,7 @@ interface Data {
 export const TableHumidity = () => {
   const [data, setData] = useState([] as Data[]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const handleFetch = async () => {
       setLoading(true);
@@ -28,9 +29,13 @@ export const TableHumidity = () => {
   }, []);
 
   return (
-    <View>
-      {loading && <Text>Cargando</Text>}
-      {!loading && (
+    <View style={styles.container}>
+      {loading ? (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#242424" />
+          <Text style={styles.loaderText}>Cargando...</Text>
+        </View>
+      ) : (
         <View style={styles.table}>
           <View style={styles.tableHeader}>
             <Text style={styles.tableHeaderText}>Fecha</Text>
@@ -56,6 +61,19 @@ export const TableHumidity = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loaderText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: "#000",
+  },
   table: {
     borderWidth: 1,
     borderColor: "#ccc",

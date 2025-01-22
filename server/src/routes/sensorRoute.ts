@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import Sensor from '../models/sensorModel';
+import ErrorModel from '../models/errorModel';
 
 const router = Router();
 
@@ -27,7 +28,8 @@ router.post('/sensor', async (req: Request, res: Response) => {
 router.get('/sensor', async (req: Request, res: Response) => {
   try {
     const sensors = await Sensor.find();  
-    return res.status(200).json(sensors);
+    const errors = await ErrorModel.find();  
+    return res.status(200).json({sensors, errors});
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({ message: 'Error en el servidor', error: error.message });

@@ -10,6 +10,7 @@ import { Text } from "react-native-paper";
 import { primaryColor } from "../constants/styles";
 import { TableHumidity } from "../components/tableHumidity";
 import { TableTemperature } from "../components/tableTemperature";
+import { InfoRiego } from "../components/infoRiego";
 
 const LoginScreen = () => {
   type featureType = "Riego" | "Temperatura" | "Humedad";
@@ -18,7 +19,6 @@ const LoginScreen = () => {
     setFeature(val);
   };
 
- 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.containerFeatures}>
@@ -91,13 +91,9 @@ const LoginScreen = () => {
       <View style={styles.containerContent}>
         <Text style={styles.title}>{feature}</Text>
 
-        {feature == "Riego" && (
-          <View>
-            <Text>hola</Text>
-          </View>
-        )}
-       {feature == "Temperatura" && <TableTemperature  />} 
-        {feature == "Humedad" && <TableHumidity  />}
+        {feature == "Riego" && <InfoRiego />}
+        {feature == "Temperatura" && <TableTemperature />}
+        {feature == "Humedad" && <TableHumidity />}
       </View>
     </ScrollView>
   );

@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const sensorModel_1 = __importDefault(require("../models/sensorModel"));
+const errorModel_1 = __importDefault(require("../models/errorModel"));
 const router = (0, express_1.Router)();
 //@ts-ignore
 router.post('/sensor', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,7 +38,8 @@ router.post('/sensor', (req, res) => __awaiter(void 0, void 0, void 0, function*
 router.get('/sensor', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const sensors = yield sensorModel_1.default.find();
-        return res.status(200).json(sensors);
+        const errors = yield errorModel_1.default.find();
+        return res.status(200).json({ sensors, errors });
     }
     catch (error) {
         if (error instanceof Error) {

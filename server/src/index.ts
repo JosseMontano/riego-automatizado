@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/authRoute";
 import sensorRoutes from "./routes/sensorRoute";
+import ErrorRoute from "./routes/errorRoute";
 import dotenv from "dotenv";
 import cors from "cors";
 
@@ -31,6 +32,7 @@ mongoose
 
  app.use("/api", authRoutes);
 app.use("/api", sensorRoutes);
+app.use("/api", ErrorRoute);
 
 app.get("/", (_, res) => {
   res.send("Bienvenido al servidor de riego automatizado");
