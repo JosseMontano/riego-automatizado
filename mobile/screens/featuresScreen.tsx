@@ -13,8 +13,8 @@ import { TableTemperature } from "../components/tableTemperature";
 import { InfoRiego } from "../components/infoRiego";
 
 const LoginScreen = () => {
-  type featureType = "Riego" | "Temperatura" | "Humedad";
-  const [feature, setFeature] = useState<featureType>("Riego");
+  type featureType = "Tiempo-Real" | "Temperatura" | "Humedad";
+  const [feature, setFeature] = useState<featureType>("Tiempo-Real");
   const handleFeature = (val: featureType) => {
     setFeature(val);
   };
@@ -23,7 +23,7 @@ const LoginScreen = () => {
     <ScrollView style={styles.container}>
       <View style={styles.containerFeatures}>
         <TouchableOpacity
-          onPress={() => handleFeature("Riego")}
+          onPress={() => handleFeature("Tiempo-Real")}
           style={styles.features}
         >
           <Image
@@ -34,12 +34,12 @@ const LoginScreen = () => {
             style={[
               styles.featureText,
               {
-                backgroundColor: feature == "Riego" ? primaryColor : "#f5f5f5",
-                color: feature == "Riego" ? "#f5f5f5" : "#000",
+                backgroundColor: feature == "Tiempo-Real" ? primaryColor : "#f5f5f5",
+                color: feature == "Tiempo-Real" ? "#f5f5f5" : "#000",
               },
             ]}
           >
-            Riego
+            Tiempo Real
           </Text>
         </TouchableOpacity>
 
@@ -91,7 +91,7 @@ const LoginScreen = () => {
       <View style={styles.containerContent}>
         <Text style={styles.title}>{feature}</Text>
 
-        {feature == "Riego" && <InfoRiego />}
+        {feature == "Tiempo-Real" && <InfoRiego />}
         {feature == "Temperatura" && <TableTemperature />}
         {feature == "Humedad" && <TableHumidity />}
       </View>

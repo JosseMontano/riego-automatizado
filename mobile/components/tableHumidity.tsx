@@ -19,7 +19,7 @@ export const TableHumidity = () => {
       const resp = await getServices("sensor");
       if (resp?.ok) {
         const res = await resp.json();
-        setData(res);
+        setData(res.sensors);
       } else {
         Alert.alert("Ha ocurrido un error");
       }
