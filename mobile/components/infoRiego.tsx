@@ -14,13 +14,6 @@ interface ErrorsData {
   fecha: string;
 }
 
-/* 
-  {
-      "_id": "6791618d665c6a43302c717a",
-      "sensorTemperatura": "fallando",
-      "fecha": "17:25:46",
-      "__v": 0
-    } */
 
 export const InfoRiego = () => {
   const [data, setData] = useState<Data | null>(null);
